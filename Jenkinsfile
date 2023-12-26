@@ -4,8 +4,8 @@ pipeline {
     stage('Build and push docker image') {
       steps {
         script {
-          withCredentials([string(credentialsId: 'savitha2789', variable: 'docker')]) {
-            sh 'docker login -u savitha2789 -p ${docker}'
+          withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+            sh 'docker login -u ckr123 -p ${dockerhubpwd}'
           }
           sh 'docker build -t ckr123/food-menu-website:dev1 .'
           sh 'docker push ckr123/food-menu-website:dev1'
