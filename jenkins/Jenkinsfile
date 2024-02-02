@@ -1,0 +1,22 @@
+pipeline {
+	agent {
+        label 'ubuntu-slave-node-1'
+    }
+    stages {
+	    stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t ckr123/docker-foodmenu-website .'
+            }
+        }
+        stage('Push Image to DockerHub') {
+            steps {
+                script {
+                   withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                    	sh "docker login -u ckr123 -p ${dockerHubPwd}"
+                        sh "docker push ckr123/docker-foodmenu-website"
+                    }
+                }
+            }
+        }
+    }
+}
