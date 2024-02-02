@@ -11,7 +11,7 @@ pipeline {
         stage('Push Image to DockerHub') {
             steps {
                 script {
-                   withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
+                   withCredentials([string(credentialsId: 'dockerhub_password', variable: 'dockerHubPwd')]) {
                     	sh "docker login -u ckr123 -p ${dockerHubPwd}"
                         sh "docker push ckr123/docker-foodmenu-website"
                     }
